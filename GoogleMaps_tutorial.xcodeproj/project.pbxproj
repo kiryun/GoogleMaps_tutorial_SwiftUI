@@ -13,7 +13,6 @@
 		8288B7D4243CCC420083B210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8288B7D3243CCC420083B210 /* Assets.xcassets */; };
 		8288B7D7243CCC420083B210 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8288B7D6243CCC420083B210 /* Preview Assets.xcassets */; };
 		8288B7DA243CCC420083B210 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8288B7D8243CCC420083B210 /* LaunchScreen.storyboard */; };
-		8288B7E2243CCE520083B210 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288B7E1243CCE520083B210 /* ViewModel.swift */; };
 		8288B7E4243CCFC10083B210 /* GoogleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288B7E3243CCFC10083B210 /* GoogleMapView.swift */; };
 		901321EF40022E02644898FD /* Pods_GoogleMaps_tutorial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CED4DEDA69E95829D0A5C09 /* Pods_GoogleMaps_tutorial.framework */; };
 /* End PBXBuildFile section */
@@ -28,7 +27,6 @@
 		8288B7D6243CCC420083B210 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8288B7D9243CCC420083B210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8288B7DB243CCC420083B210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8288B7E1243CCE520083B210 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		8288B7E3243CCFC10083B210 /* GoogleMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapView.swift; sourceTree = "<group>"; };
 		88C44EB17EE608B0988D213E /* Pods-GoogleMaps_tutorial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleMaps_tutorial.release.xcconfig"; path = "Target Support Files/Pods-GoogleMaps_tutorial/Pods-GoogleMaps_tutorial.release.xcconfig"; sourceTree = "<group>"; };
 		8CED4DEDA69E95829D0A5C09 /* Pods_GoogleMaps_tutorial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoogleMaps_tutorial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +78,6 @@
 				8288B7CF243CCC3F0083B210 /* SceneDelegate.swift */,
 				8288B7D1243CCC3F0083B210 /* ContentView.swift */,
 				8288B7E3243CCFC10083B210 /* GoogleMapView.swift */,
-				8288B7E1243CCE520083B210 /* ViewModel.swift */,
 				8288B7D3243CCC420083B210 /* Assets.xcassets */,
 				8288B7D8243CCC420083B210 /* LaunchScreen.storyboard */,
 				8288B7DB243CCC420083B210 /* Info.plist */,
@@ -223,7 +220,6 @@
 				8288B7CE243CCC3F0083B210 /* AppDelegate.swift in Sources */,
 				8288B7E4243CCFC10083B210 /* GoogleMapView.swift in Sources */,
 				8288B7D0243CCC3F0083B210 /* SceneDelegate.swift in Sources */,
-				8288B7E2243CCE520083B210 /* ViewModel.swift in Sources */,
 				8288B7D2243CCC3F0083B210 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

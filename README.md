@@ -1,12 +1,85 @@
-//
-//  GoogleMapView.swift
-//  GoogleMaps_tutorial
-//
-//  Created by Gihyun Kim on 2020/04/08.
-//  Copyright © 2020 wimes. All rights reserved.
-//
+# GoogleMap in SwiftUI - basic map
+
+## Info.plist
+
+우선 Location에 대한 권한을 얻어야 하므로 `Info.plist` 를 수정해주도록 합니다.
+
+![image-20200409200514015](README.assets/image-20200409200514015.png)
+
+`Privacy - Location When In Use Usage Description` 항목을 추가해주도록 합니다.
+이는 사용자에게 App을 사용할 때만 위치를 서비스를 사용할 것인지를 물어볼 수 있도록 해줍니다.
+Value값에는 물어 볼 때 문구를 설정해줄 수 있습니다.
+
+## Google API before start
+
+우선은 https://developers.google.com/maps/documentation/ios-sdk/start?authuser=1 (2020.04.09기준)의 절차를 따르도록 합니다.
+
+Terminal로 프로젝트 폴더로 가서 
+
+<pre>
+  pod init
+  vim Podfile
+</pre>
+
+을 이용해 Podfile을 수정해줍니다.
+
+```shell
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'GoogleMaps_tutorial' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+		pod 'GoogleMaps'
+  	pod 'GooglePlaces'
+  # Pods for GoogleMaps_tutorial
+
+end
+```
+
+이후 pod을 install 해줍니다.
+
+`pod install`
 
 
+
+pod을 성공적으로 설치했다면 apiKey를 발급받아야 합니다. 이 내용은 https://developers.google.com/maps/documentation/ios-sdk/get-api-key?authuser=1#add_key 에 자세히 설명되어있으니 따로 적지는 않겠습니다.
+
+## Coding
+
+우선 AppDelegate에 발급받은 apiKey를 사용하도록 합니다.
+
+**AppDelegate.swift**
+
+```swift
+import GoogleMaps
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    let gmApiKey: String = "yourApiKey"
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        GMSServices.provideAPIKey(self.gmApiKey)
+        //if using the Places API
+//        GMSPlacesClient.provideAPIKey(self.gmApiKey)
+        return true
+    }
+  
+  /*
+  * ...
+  */
+}
+```
+
+
+
+그 후 GoogleMapView.swift 파일을 만들어 다음과 같이 코딩하도록 합니다.
+
+**GoogleMapView.swift**
+
+```swift
 import SwiftUI
 import UIKit
 import GoogleMaps
@@ -86,89 +159,13 @@ struct GoogMapControllerRepresentable: UIViewControllerRepresentable {
 
     }
 }
+```
 
+다른 건 google document나 다른 블로그에 잘 설명 되어있으니 따로 설명을 드리지 않겠습니다.
+여기서 중요한건 **ViewController를 어떻게 SwiftUI에서 사용되는 가** 가 주목해야할 점입니다.
 
-// ref:https://stackoverflow.com/questions/58194015/google-maps-integration-into-swiftui
-//struct GoogleMapView: UIViewRepresentable {
-//    let marker: GMSMarker = GMSMarker()
-//
-//    /// Creates a `UIView` instance to be presented.
-//    func makeUIView(context: Self.Context) -> GMSMapView {
-//        print("makeUIView")
-//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//
-//        return mapView
-//    }
-//
-//    /// Updates the presented `UIView` (and coordinator) to the latest
-//    /// configuration.
-//    func updateUIView(_ mapView: GMSMapView, context: Self.Context) {
-//        print("updateUIView")
-//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//        marker.title = "Sydney"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
-//    }
-//}
+class안에 struct GoogleMapControllerRepresentable을 선언했는데 이 부분이 해결책입니다.
+UIViewcontrollerRepresentable에 관한 내용은 [여기](https://zeddios.tistory.com/763)에 잘 설명되어있으니 참고하시길 바랍니다.
 
-//CLLocation
-//ref: https://stackoverflow.com/questions/57681885/how-to-get-current-location-using-swiftui-without-viewcontrollers
-//class LocationManager: NSObject, ObservableObject {
-//
-//    override init() {
-//        super.init()
-//        self.locationManager.delegate = self
-//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        self.locationManager.requestWhenInUseAuthorization()
-//        self.locationManager.startUpdatingLocation()
-//    }
-//
-//    @Published var locationStatus: CLAuthorizationStatus? {
-//        willSet {
-//            objectWillChange.send()
-//        }
-//    }
-//
-//    @Published var lastLocation: CLLocation? {
-//        willSet {
-//            objectWillChange.send()
-//        }
-//    }
-//
-//    var statusString: String {
-//        guard let status = locationStatus else {
-//            return "unknown"
-//        }
-//
-//        switch status {
-//        case .notDetermined: return "notDetermined"
-//        case .authorizedWhenInUse: return "authorizedWhenInUse"
-//        case .authorizedAlways: return "authorizedAlways"
-//        case .restricted: return "restricted"
-//        case .denied: return "denied"
-//        default: return "unknown"
-//        }
-//
-//    }
-//
-//    let objectWillChange = PassthroughSubject<Void, Never>()
-//
-//    private let locationManager = CLLocationManager()
-//}
-//
-//extension LocationManager: CLLocationManagerDelegate {
-//
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        self.locationStatus = status
-//        print(#function, statusString)
-//    }
-//
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.last else { return }
-//        self.lastLocation = location
-//        print(#function, location)
-//    }
-//
-//}
-//
+![image-20200409204454037](README.assets/image-20200409204454037.png)
+
